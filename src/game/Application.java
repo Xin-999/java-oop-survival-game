@@ -7,6 +7,8 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.items.LargeBolt;
+import game.items.MetalSheet;
 
 /**
  * The main class to start the game.
@@ -55,8 +57,12 @@ public class Application {
 
         gameMap.at(7, 9).addActor(new HuntsmanSpider());
 
+
         Player player = new Player("Intern", '@', 4);
         world.addPlayer(player, gameMap.at(15, 6));
+
+        gameMap.at(10, 4).addItem(new LargeBolt());
+        gameMap.at(14, 3).addItem(new MetalSheet());
 
         world.run();
     }
