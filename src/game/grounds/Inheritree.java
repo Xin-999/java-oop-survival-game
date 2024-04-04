@@ -54,10 +54,7 @@ public class Inheritree extends Ground implements FruitProducer {
         // Select a random exit
         Exit exit = exits.get(random.nextInt(exits.size()));
         Location destination = exit.getDestination();
-
-        // Check if the destination can hold an item (it's not blocked by another item or character)
-//        if (destination.canActorEnter(Actor)) {
         destination.addItem(new Fruit(isLarge, isLarge ? "Large" : "Small"));
-//        }
+
     }
 }
