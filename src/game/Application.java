@@ -3,10 +3,13 @@ package game;
 import java.util.Arrays;
 import java.util.List;
 
+
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.grounds.Inheritree;
+import game.items.Fruit;
 import game.items.LargeBolt;
 import game.items.MetalSheet;
 
@@ -63,6 +66,8 @@ public class Application {
 
         gameMap.at(10, 4).addItem(new LargeBolt());
         gameMap.at(14, 3).addItem(new MetalSheet());
+        gameMap.at(5, 5).setGround(new Inheritree());
+        gameMap.at(7, 10).setGround(new Inheritree());
 
         world.run();
     }
