@@ -1,4 +1,4 @@
-package game;
+package game.actors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -7,6 +7,11 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import game.actions.AttackAction;
+import game.Status;
+import game.behaviours.AttackBehaviour;
+import game.behaviours.WanderBehaviour;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +22,9 @@ public class HuntsmanSpider extends Actor {
     public HuntsmanSpider() {
         super("Huntsman Spider", '8', 1);
         this.behaviours.put(999, new WanderBehaviour());
+        // In the Huntsman Spider's constructor or initialization method
+        this.behaviours.put(1, new AttackBehaviour());
+
     }
 
     /**
@@ -38,6 +46,8 @@ public class HuntsmanSpider extends Actor {
         return new DoNothingAction();
     }
 
+
+
     /**
      * The huntsman spider can be attacked by any actor that has the HOSTILE_TO_ENEMY capability
      *
@@ -54,5 +64,14 @@ public class HuntsmanSpider extends Actor {
         }
         return actions;
     }
+
+    @Override
+    public IntrinsicWeapon getIntrinsicWeapon() {
+        // Assuming hitRate is an integer representing a percentage,
+        // 25 represents a 25% chance to hit
+        return new IntrinsicWeapon(1, "strikes with a long leg", 25);
+    }
+
+
 
 }
