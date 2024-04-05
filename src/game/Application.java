@@ -8,8 +8,9 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
-import game.grounds.Inheritree;
-import game.items.Fruit;
+import game.actors.HuntsmanSpider;
+import game.actors.Player;
+import game.grounds.*;
 import game.items.LargeBolt;
 import game.items.MetalSheet;
 
@@ -66,9 +67,23 @@ public class Application {
 
         gameMap.at(10, 4).addItem(new LargeBolt());
         gameMap.at(14, 3).addItem(new MetalSheet());
+
+
         gameMap.at(5, 5).setGround(new Inheritree());
         gameMap.at(7, 10).setGround(new Inheritree());
 
+        gameMap.at(4,5).setGround(new Crater());
+        gameMap.at(4,13).setGround(new Crater());
         world.run();
+
+        for (String line : FancyMessage.YOU_ARE_FIRED.split("\n")) {
+            new Display().println(line);
+            try {
+                Thread.sleep(200);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+
     }
 }
