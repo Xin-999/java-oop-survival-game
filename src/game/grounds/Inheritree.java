@@ -23,7 +23,7 @@ public class Inheritree extends Ground implements FruitProducer {
         super.tick(location);
         age++;
 
-        if (age == 5) {
+        if (age > 5) {
             setDisplayChar('T'); // Mature tree
             isMature = true;
         }
