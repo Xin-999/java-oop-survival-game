@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class AttackBehaviour implements Behaviour {
     private final Random random = new Random();
-    private final int attackChance; // Optional: Chance to attack if multiple conditions are considered
+    private final int attackChance; // Chance to attack if multiple conditions are considered
 
     public AttackBehaviour(int attackChance) {
         this.attackChance = attackChance;
@@ -35,16 +35,8 @@ public class AttackBehaviour implements Behaviour {
                 if (isValidTarget(otherActor)){
                     actions.add(new AttackAction(otherActor, exit.getName()));
                 }
-//                actions.add(new AttackAction(destination.getActor(), exit.getName()));
-//                Actor otherActor = exit.getDestination().getActor();
-                // Check if the actor in the adjacent location is a player
-//                if (otherActor.hasCapability(Status.HOSTILE_TO_PLAYER)) { // Assuming a capability check for identifying the player
-//                    // Decide to attack based on the attackChance
-
-//                return new AttackAction(otherActor,);
             }
         }
-
 
         if (!actions.isEmpty()) {
             return actions.get(random.nextInt(actions.size()));
