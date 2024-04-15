@@ -3,10 +3,18 @@ package game.actors;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
+import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import edu.monash.fit2099.engine.weapons.Weapon;
+import edu.monash.fit2099.engine.weapons.WeaponItem;
+import game.Ability;
 import game.Status;
+import game.actions.AttackAction;
+import game.items.MetalPipe;
 
 /**
  * Class representing the Player.
@@ -26,6 +34,7 @@ public class Player extends Actor {
     public Player(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.addCapability(Status.HOSTILE_TO_ENEMY);
+        this.addCapability(Ability.ENTER_SPACESHIP);
     }
 
     @Override
@@ -38,4 +47,13 @@ public class Player extends Actor {
         Menu menu = new Menu(actions);
         return menu.showMenu(this, display);
     }
+
+    @Override
+    public IntrinsicWeapon getIntrinsicWeapon() {
+        return new IntrinsicWeapon(1, "punches", 5);
+    }
+
+
+
+
 }
