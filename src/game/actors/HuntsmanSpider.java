@@ -6,12 +6,15 @@ import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import edu.monash.fit2099.engine.weapons.Weapon;
 import game.actions.AttackAction;
 import game.Status;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.WanderBehaviour;
+import game.items.MetalPipe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +27,7 @@ public class HuntsmanSpider extends Actor {
         this.behaviours.put(999, new WanderBehaviour());
         // In the Huntsman Spider's constructor or initialization method
         this.behaviours.put(1, new AttackBehaviour());
+//        this.addCapability(Status.HOSTILE_TO_PLAYER);
 
     }
 
@@ -46,8 +50,6 @@ public class HuntsmanSpider extends Actor {
         return new DoNothingAction();
     }
 
-
-
     /**
      * The huntsman spider can be attacked by any actor that has the HOSTILE_TO_ENEMY capability
      *
@@ -61,13 +63,20 @@ public class HuntsmanSpider extends Actor {
         ActionList actions = new ActionList();
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
             actions.add(new AttackAction(this, direction));
+            for (Item item : otherActor.getItemInventory()) {
+                if (item instanceof MetalPipe) {
+                    // Add an attack action using the metal pipe against the other actor
+                    actions.add(new AttackAction(this, direction, (Weapon) item));
+                    break;
+                }
+            }
+
         }
         return actions;
     }
 
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
-        // Assuming hitRate is an integer representing a percentage,
         // 25 represents a 25% chance to hit
         return new IntrinsicWeapon(1, "strikes with a long leg", 25);
     }
