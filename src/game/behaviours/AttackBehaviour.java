@@ -6,9 +6,8 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
 import game.actions.AttackAction;
-import game.actors.HuntsmanSpider;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -59,6 +58,7 @@ public class AttackBehaviour implements Behaviour {
         // Implement logic to determine if the actor is a valid target
         // This could be checking for a specific capability, type, or any unique identifier
         // Example: return actor instanceof Player;
-        return !actor.getClass().equals(HuntsmanSpider.class); // Assuming you want to exclude other Huntsman Spiders
+        return actor.hasCapability(Status.HOSTILE_TO_ENEMY);
+//        return !actor.getClass().equals(HuntsmanSpider.class); // Assuming you want to exclude other Huntsman Spiders
     }
 }
