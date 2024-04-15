@@ -10,22 +10,24 @@ import game.items.Fruit;
 import game.items.FruitProducer;
 
 public class Inheritree extends Ground implements FruitProducer {
-    private int age = 0;
+    private int age;
     private boolean isMature = false;
     private Random random = new Random();
 
     public Inheritree() {
         super('t'); // Initial display for sapling
+        age = 0;
     }
 
     @Override
     public void tick(Location location) {
-        super.tick(location);
+//        super.tick(location);
         age++;
 
         if (age > 5) {
             setDisplayChar('T'); // Mature tree
             isMature = true;
+
         }
 
         produceFruit(location);
