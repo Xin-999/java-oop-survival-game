@@ -1,0 +1,40 @@
+Design Rationale of Requirement 3
+
+This diagram represent a crater that will spawn creature to the map of game.
+SpiderCrater is a concrete class that inherit from abstract Crater class. The Crater class extend from abstract
+Ground class from engine package.
+
+Abstract Crater, SpiderCrater and HuntsmanSpider classes were introduced to represent spawning locations and creatures,
+respectively. The Crater class is abstract as its purpose as a blueprint for future implementation on creating other
+type of creature. This ensure reduce repetition of code and future class can inherit from abstract crater class just
+like the SpiderCrater class.
+
+The Crater class is open for extension but closed for modification. New types of craters can be introduced by
+extending the Crater class without altering its existing code structure. (Open/Closed Principle).
+It can utilise the spawnCreature method to create new object on its own class like spiderCrater to instantiate new HuntsmanSpider.
+Pros: Enables easy addition of new creature types via subclasses without changing existing code,
+reducing the risk of introducing bugs in the established functionality.
+Cons: Could result in class hierarchy becoming overly complex if many specific types of craters are added,
+complicating the understanding and maintenance of the codebase.
+
+
+SpiderCrater can be used in place of Crater, without affecting the behavior of the game engine,
+ensuring that new crater types can seamlessly integrate into the system. (Liskov Substitution Principle).
+The subclass which is SpiderCrater can do everything the base class can do which is abstract Crater.
+Pros: Easier to extend the code for future usage. We can create new type of creature crater easily by extending the abstract crater class.
+Cons: There is a risk of diluted responsibilities: As more functionality is added to the Crater subclasses
+to handle diverse creatures, there's a risk that these classes could start taking on multiple roles,
+such as handling creature behaviors or interactions beyond spawning. This could dilute their cohesion,
+making the classes harder to manage and evolve.
+Alternative considered: A single crater class with a type attribute was considered to dictate behavior.
+This approach was rejected due to its limited extensibility and potential for violating the Single Responsibility Principle
+as adaptations grow.
+
+In Ability enum class, I added a ENTER_SPACESHIP ability. This is used in Floor class which
+determine which actor can enter the spaceship by checking their ability.
+This approach also adheres to DRY(Don't Repeat Yourself), as it avoids repetition by centralizing the interaction
+logic within capabilities rather than spreading it across multiple classes handling specific interactions.
+Pros: Reduce repetition of code. Improve readability, and modular code.
+Cons: Debugging issues related to capabilities can be more challenging because the behavior is not directly
+linked to the implementing class but rather handled through the ability system.
+This indirection can obscure the flow of control and data, making it harder to trace and fix bugs.
