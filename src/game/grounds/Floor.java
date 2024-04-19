@@ -16,6 +16,11 @@ public class Floor extends Ground {
         super('_');
     }
 
+    /**
+     * Check if actor can enter the spaceship
+     * @param actor The actor that wants to enter the spaceship
+     * @return true if actor can enter the spaceship, false otherwise
+     */
     @Override
     public boolean canActorEnter(Actor actor) {
         // Check if actor has the capability to enter

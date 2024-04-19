@@ -10,6 +10,8 @@ import game.actions.ConsumeAction;
 /**
  * Class representing a generic fruit in the game.
  * Can be extended or instantiated with different sizes/types.
+ * @author Ang Qiao Xin
+ * @version 1.0
  */
 public class Fruit extends Item implements Consumable{
     private final boolean isLarge;
@@ -48,7 +50,11 @@ public class Fruit extends Item implements Consumable{
         return actions;
     }
 
-
+    /**
+     * Executes the effect of consuming the fruit.
+     * @param actor the Actor consuming the fruit.
+     * @return a description of the consumption effect.
+     */
     @Override
     public String consume(Actor actor) {
         int healingAmount = isLarge ? 2 : 1;

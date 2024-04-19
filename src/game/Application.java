@@ -12,6 +12,7 @@ import game.actors.HuntsmanSpider;
 import game.actors.Player;
 import game.grounds.*;
 import game.items.LargeBolt;
+import game.items.MetalPipe;
 import game.items.MetalSheet;
 
 /**
@@ -59,7 +60,7 @@ public class Application {
             }
         }
 
-        gameMap.at(7, 9).addActor(new HuntsmanSpider());
+//        gameMap.at(7, 9).addActor(new HuntsmanSpider());
 
 
         Player player = new Player("Intern", '@', 4);
@@ -69,11 +70,16 @@ public class Application {
         gameMap.at(14, 3).addItem(new MetalSheet());
 
 
-        gameMap.at(5, 5).setGround(new Inheritree());
+        gameMap.at(21, 2).setGround(new Inheritree());
         gameMap.at(7, 10).setGround(new Inheritree());
 
-        gameMap.at(4,5).setGround(new Crater());
-        gameMap.at(4,13).setGround(new Crater());
+        gameMap.at(4,5).setGround(new SpiderCrater());
+        gameMap.at(4,13).setGround(new SpiderCrater());
+//        gameMap.at(14, 8).addActor(new HuntsmanSpider());
+//        gameMap.at(14, 9).addActor(new HuntsmanSpider());
+
+        gameMap.at(15,11).setGround(new SpiderCrater());
+        gameMap.at(15,9).addItem(new MetalPipe());
         world.run();
 
         for (String line : FancyMessage.YOU_ARE_FIRED.split("\n")) {

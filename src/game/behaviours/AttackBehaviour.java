@@ -11,16 +11,14 @@ import game.actions.AttackAction;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Behaviour for attacking an actor.
+ * @author Ang Qiao Xin
+ * @version 1.0
+ */
 public class AttackBehaviour implements Behaviour {
     private final Random random = new Random();
-    private final int attackChance; // Chance to attack if multiple conditions are considered
-
-    public AttackBehaviour(int attackChance) {
-        this.attackChance = attackChance;
-    }
-
     public AttackBehaviour() {
-        this.attackChance = 100; // Defaults to always attack if the player is nearby
     }
 
     @Override
@@ -47,10 +45,7 @@ public class AttackBehaviour implements Behaviour {
         // Return null if no player is nearby or attack condition is not met
     }
     private boolean isValidTarget(Actor actor) {
-        // Implement logic to determine if the actor is a valid target
-        // This could be checking for a specific capability, type, or any unique identifier
-        // Example: return actor instanceof Player;
         return actor.hasCapability(Status.HOSTILE_TO_ENEMY);
-//        return !actor.getClass().equals(HuntsmanSpider.class); // Assuming you want to exclude other Huntsman Spiders
+
     }
 }
