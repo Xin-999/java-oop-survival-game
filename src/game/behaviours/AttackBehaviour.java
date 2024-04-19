@@ -6,22 +6,19 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
 import game.actions.AttackAction;
-import game.actors.HuntsmanSpider;
-
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Behaviour for attacking an actor.
+ * @author Ang Qiao Xin
+ * @version 1.0
+ */
 public class AttackBehaviour implements Behaviour {
     private final Random random = new Random();
-    private final int attackChance; // Optional: Chance to attack if multiple conditions are considered
-
-    public AttackBehaviour(int attackChance) {
-        this.attackChance = attackChance;
-    }
-
     public AttackBehaviour() {
-        this.attackChance = 100; // Defaults to always attack if the player is nearby
     }
 
     @Override
@@ -36,16 +33,8 @@ public class AttackBehaviour implements Behaviour {
                 if (isValidTarget(otherActor)){
                     actions.add(new AttackAction(otherActor, exit.getName()));
                 }
-//                actions.add(new AttackAction(destination.getActor(), exit.getName()));
-//                Actor otherActor = exit.getDestination().getActor();
-                // Check if the actor in the adjacent location is a player
-//                if (otherActor.hasCapability(Status.HOSTILE_TO_PLAYER)) { // Assuming a capability check for identifying the player
-//                    // Decide to attack based on the attackChance
-
-//                return new AttackAction(otherActor,);
             }
         }
-
 
         if (!actions.isEmpty()) {
             return actions.get(random.nextInt(actions.size()));
@@ -56,9 +45,7 @@ public class AttackBehaviour implements Behaviour {
         // Return null if no player is nearby or attack condition is not met
     }
     private boolean isValidTarget(Actor actor) {
-        // Implement logic to determine if the actor is a valid target
-        // This could be checking for a specific capability, type, or any unique identifier
-        // Example: return actor instanceof Player;
-        return !actor.getClass().equals(HuntsmanSpider.class); // Assuming you want to exclude other Huntsman Spiders
+        return actor.hasCapability(Status.HOSTILE_TO_ENEMY);
+
     }
 }

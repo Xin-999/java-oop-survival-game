@@ -1,53 +1,49 @@
 package game.grounds;
 
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
-import game.actors.HuntsmanSpider;
-import game.spawns.EnemyRegistry;
-import game.spawns.Spawner;
-
-import java.util.List;
 import java.util.Random;
-import java.util.function.Supplier;
 
-public class Crater extends Ground implements Spawner {
-    private static EnemyRegistry enemyRegistry = new EnemyRegistry();
+/**
+ * An abstract class that represents a Crater.
+ * Crater is a type of Ground that can spawn a creature.
+ * @author Ang Qiao Xin
+ * @version 1.0
+ */
+public abstract class Crater extends Ground {
     private Random random = new Random();
+    private int spawnRate;
 
-    static {
-        // Register known enemies here, HuntsmanSpider as an example
-        enemyRegistry.registerEnemy(HuntsmanSpider::new);
-        // Additional enemies can be registered similarly
+    /**
+     * Constructor of Crater that spawn a creature.
+     *
+     * @param displayChar character to display the Crater
+     * @param spawnRate the rate of spawning a creature
+     */
+    public Crater(char displayChar, int spawnRate) {
+        super(displayChar);
+        this.spawnRate = spawnRate;
     }
 
-    public Crater() {
-        super('u'); // Representing crater with 'u'
-    }
-
+    /**
+     * Tick method for Crater.
+     * If the random number is less than spawnRate and the location does not contain an actor, spawn a creature.
+     *
+     * @param location the location of the Crater
+     */
     @Override
     public void tick(Location location) {
-        if (random.nextInt(100) < 5) { // 5% chance to attempt to spawn an enemy
-            spawn(location);
+        if (random.nextInt(100) < spawnRate && !location.containsAnActor()) {
+            location.addActor(spawnCreature());
         }
     }
 
-    @Override
-    public void spawn(Location location) {
-        List<Exit> exits = location.getExits();
-        if (!exits.isEmpty()) {
-            // Choose a random exit for spawning
-            Exit exit = exits.get(random.nextInt(exits.size()));
-            Location spawnLocation = exit.getDestination();
+    /**
+     * Abstract method to spawn a creature.
+     *
+     * @return the creature to be spawned
+     */
+    protected abstract Actor spawnCreature();
 
-            // Check if the selected location is free
-
-                Actor enemy = enemyRegistry.getRandomEnemy();
-                if (enemy != null) {
-                    spawnLocation.addActor(enemy);
-                }
-
-        }
-    }
 }

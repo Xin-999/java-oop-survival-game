@@ -1,0 +1,52 @@
+Design Rationale of Requirement 4
+
+This diagram represent a concrete class Fruit extend from interface Consumable class.
+This means the fruit can by consumed by player. There are concrete MetalPipe class extends from abstract
+WeaponItem from engine package. This serve as a weapon for player to attack hostile creature.
+
+The Metal Pipe class extends the WeaponItem class from the game engine. This design choice supports the
+Single Responsibility Principle (SRP) by maintaining weapon-specific functionalities like damage dealing and
+attack accuracy within a dedicated class that already manages similar behaviors.
+Pros: SRP leads to cleaner, more readable code. Other developers on the project can quickly understand the role
+of the Metal Pipe class without sifting through unrelated functionalities. This clarity accelerates development process.
+High cohesion is maintained within classes. Each class has a well-defined role, reducing complexity and improving maintainability.
+Cons: By extending the WeaponItem class, the Metal Pipe is tightly coupled to the specific implementation of its parent class.
+This can limit flexibility if the behavior of WeaponItem changes or if the Metal Pipe needs to diverge in
+functionality from standard weapons in the future.
+Alternative considered: Create a abstract scrap class: Initially, an abstract Scrap class was considered
+to generalize the behaviors of all scrap items. However, this was discarded in favor of more specialized base
+classes because the behaviors of consumable items and weapons are distinct enough to warrant separate hierarchies.
+
+
+Consumable Interface for Fruits: Fruits implement the Consumable interface, which allows for a consistent way
+of handling the consumption effects across different types of consumable items. This aligns with the
+Interface Segregation Principle (ISP) by segregating interfaces of Consumable for Item in the game.
+This ensures that the fruit classes can implement consumable interface and more interfaces in the future.
+Pros: Make system more extensible and can add new features to the code without needing to refactor.
+By using existing interfaces classes like Consumable, the design promotes reuse, which minimizes redundancy and potential errors.
+Cons: If many items implement the Consumable interface but do so in very similar ways,
+the benefits of the interface might not justify the abstraction. It could be more straightforward to have a
+base class with default behaviors.
+Alterative considered: Inheritance from a base Consumable class. Instead of an interface,
+a base class could provide default consume behaviors that could be overridden by subclasses.
+This approach was rejected because it could lead to a deeper and potentially more rigid inheritance structure,
+making it harder to modify or extend behaviors cleanly.
+
+Objects of a superclass (like Item or WeaponItem) can be replaced with objects of subclasses (like Metal Pipe)
+without affecting the correctness of the program. This ensures that the game mechanics which rely on item interactions
+continue to function correctly regardless of the specific item types involved which follow Liskov Substitution Principle (LSP).
+Pros: Allow polymorphism. By ensuring that subclasses can be used wherever a superclass is expected,
+LSP allows for more reusable and interchangeable modules. This means that game developers can extend the
+functionality of existing classes without the need to modify existing code.
+Cons: To comply with LSP, subclasses might be restricted in how they can extend or modify the behavior of the superclass.
+This can limit the creativity and specific functionalities that can be implemented in the subclass.
+
+Concrete classes like Fruit implement higher-level abstractions provided by interfaces such as Consumable which
+achieve Dependency Inversion Principle (DIP).By depending on the Consumable interface,
+the game logic becomes decoupled from the specific details of any consumable item.
+This means changes to the Fruit class (like adding new types of fruit or changing the effects of consumption)
+do not require changes to the parts of the codebase that handle item consumption, as long as using the interface.
+Pros:  Improved Modularity. Changes to the consumption logic of a specific item type won’t affect other
+parts of the system, as these parts rely on the interface, not on the details.
+Cons: Potential for Over-Abstraction: If not many items are consumable,
+this architecture could introduce unnecessary complexity.

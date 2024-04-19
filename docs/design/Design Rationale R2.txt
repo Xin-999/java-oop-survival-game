@@ -1,0 +1,24 @@
+Design Rationale of Requirement 2
+
+The diagram represents an object-oriented system for an concrete “Inheritree” extend from Ground from engine package.
+This tree have ability to produce fruits to its surrounding. Player can pick up or drop the fruit.
+
+The 2 concrete class ‘Inheritree’ and ‘Fruit’ only maintain a purpose which fulfill Single Responsibility Principle (SRP).
+Pros: Each class has a clear purpose. `Inheritree` manages the tree's lifecycle and fruit production,
+while `Fruit` handles the properties and behavior of the fruit items.
+Cons: Can lead to scenarios where maintaining relationships between classes that handle different aspects of
+related functionality becomes challenging. For instance, changes in the behavior of ‘Fruit’ might necessitate
+adjustments in ‘Inheritree’ if the two are tightly coupled through direct interactions.
+
+Fruit class and inheritree class allow new fruit types through subclassing,
+without changing existing tree growth or fruit production logic in the system.
+Inheritree extend from Ground and Fruit extend from Item which achieved Open/Closed Principle (OCP) .
+Pros: New fruit types can be added by extending the Fruit class. The Inheritree class does not need to be
+modified to support new fruits, promoting a design that is open for extension but closed for modification.
+Cons: There will be cohesion issue later on. The current design might lead to lower cohesion if
+the Fruit class starts accumulating various types of fruit behaviors, which could have been better separated
+into different classes or through interfaces.
+Alternative considered: Implement fruit production as an interface (FruitProducer),
+which Inheritree would implement. However, this was rejected we want to keep the implementation
+straightforward and avoid complicated the current code. This decision prioritizes simplicity and rapid development
+for a small-scale project where a single tree type exists.

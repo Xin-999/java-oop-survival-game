@@ -7,6 +7,11 @@ import edu.monash.fit2099.engine.weapons.Weapon;
 
 import java.util.Random;
 
+/**
+ * Action for attacking an actor.
+ * @author Ang Qiao Xin
+ * @version 1.0
+ */
 public class AttackAction extends Action {
 
     /**
@@ -52,6 +57,12 @@ public class AttackAction extends Action {
         this.direction = direction;
     }
 
+    /**
+     * Execute the action of attacking an actor.
+     * @param actor The actor performing the action.
+     * @param map The map the actor is on.
+     * @return a description of the action after it is executed
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
         if (weapon == null) {
@@ -72,6 +83,11 @@ public class AttackAction extends Action {
         return result;
     }
 
+    /**
+     * Returns a string describing the action of attacking an actor.
+     * @param actor The actor performing the action.
+     * @return a string describing the action of attacking an actor
+     */
     @Override
     public String menuDescription(Actor actor) {
         return actor + " attacks " + target + " at " + direction + " with " + (weapon != null ? weapon : "Intrinsic Weapon");

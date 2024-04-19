@@ -1,0 +1,14 @@
+Design Rationale of Requirement 1
+
+Implement `LargeBolt` and `MetalSheet` classes that inherit from the `Item` class.
+They share common attribute and methods, so it is logical to use the abstract class from engine to avoid repetitions of code. (DRY) principle.
+Pros: Simplifies the development process by reusing existing code, reducing the potential for bugs and decreasing development time.
+Cons: Reliance on the base `Item` class means that any limitations or bugs in the `Item` class will propagate to these subclasses.
+Alternative considered: Creating completely independent classes with their own methods for handling interactions,
+which was rejected due to increased complexity and code duplication.
+
+By inherit from engine package,  new types of scrap items can be added as new classes without modifying existing classes.
+The system is open for extension but closed for modification following Open/Closed Principle (OCP) principle.
+Pros: Easily open for modification for future use without changing the base code.
+Cons: Tight coupling with item class in engine package. If there is anything wrong with engine package,
+the game item which is metalsheets or largebolt will be affected.

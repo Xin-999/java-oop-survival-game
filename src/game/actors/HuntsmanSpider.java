@@ -7,24 +7,36 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import edu.monash.fit2099.engine.weapons.Weapon;
 import game.actions.AttackAction;
 import game.Status;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.WanderBehaviour;
+import game.items.MetalPipe;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class that represents a Huntsman Spider.
+ * @author Ang Qiao Xin
+ * @version 1.0
+ */
 public class HuntsmanSpider extends Actor {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
 
+    /**
+     * Constructor for HuntsmanSpider
+     * Added WanderBehaviour and AttackBehaviour to spider.
+     */
     public HuntsmanSpider() {
         super("Huntsman Spider", '8', 1);
         this.behaviours.put(999, new WanderBehaviour());
         // In the Huntsman Spider's constructor or initialization method
         this.behaviours.put(1, new AttackBehaviour());
-
     }
 
     /**
@@ -46,15 +58,13 @@ public class HuntsmanSpider extends Actor {
         return new DoNothingAction();
     }
 
-
-
     /**
      * The huntsman spider can be attacked by any actor that has the HOSTILE_TO_ENEMY capability
      *
      * @param otherActor the Actor that might be performing attack
      * @param direction  String representing the direction of the other Actor
      * @param map        current GameMap
-     * @return
+     * @return actions that can be performed by otherActor
      */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
@@ -62,12 +72,16 @@ public class HuntsmanSpider extends Actor {
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
             actions.add(new AttackAction(this, direction));
         }
+
         return actions;
     }
 
+    /**
+     * Huntsman Spider has default weapon with 25% chance to hit player
+     * @return IntrinsicWeapon that can attack player
+     */
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
-        // Assuming hitRate is an integer representing a percentage,
         // 25 represents a 25% chance to hit
         return new IntrinsicWeapon(1, "strikes with a long leg", 25);
     }
