@@ -3,7 +3,7 @@
 A survival-style Java game where the player explores alien moons, collects scrap, interacts with mysterious terminals, and makes strategic decisions to survive — or profit.
 
 This project focuses on **clean object-oriented design**, modular code structure, and extendability — featuring mechanics like teleportation, item trading, and reactive NPCs.
-
+Read docs to explore more on technical stuff.
 ---
 
 ## 🚀 Features
